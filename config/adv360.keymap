@@ -40,11 +40,11 @@
 
         default_layer {
             bindings = <
-   &kp ESC    &kp N1     &kp N2     &kp N3     &kp N4  &kp N5              &tog 1                                                                             &mo 3  &kp N6  &kp N7            &kp N8             &kp N9          &kp N0  &kp MINUS
-  &kp LALT     &kp Q      &kp W      &kp F      &kp P   &kp G               &none                                                                             &none   &kp J   &kp L             &kp U              &kp Y       &kp COLON  &kp GRAVE
- &kp LCTRL     &kp A      &kp R      &kp S      &kp T   &kp D               &none        &kp LCMD  &kp PAGE_UP                  &kp PAGE_DOWN    &kp TAB      &none   &kp H   &kp N             &kp E              &kp I           &kp O    &kp SQT
- &kp LSHFT     &kp Z      &kp X      &kp C      &kp V   &kp B                                       &kp ESCAPE                  &kp BACKSLASH                         &kp K   &kp M         &kp COMMA            &kp DOT        &kp FSLH  &kp RSHFT
-     &mo 2  &kp LEFT  &kp MINUS  &kp EQUAL  &kp RIGHT                    &kp BSPC  &kp LEFT_SHIFT    &kp RCTRL                       &kp RALT  &kp ENTER  &kp SPACE          &kp UP  &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp DOWN_ARROW      &mo 2
+   &kp ESC    &kp N1            &kp N2             &kp N3     &kp N4  &kp N5              &tog 1                                                                             &mo 3  &kp N6  &kp N7                &kp N8                 &kp N9          &kp N0  &kp MINUS
+  &kp LALT     &kp Q             &kp W              &kp F      &kp P   &kp G               &none                                                                             &none   &kp J   &kp L                 &kp U                  &kp Y       &kp COLON  &kp GRAVE
+ &kp LCTRL     &kp A             &kp R              &kp S      &kp T   &kp D               &none        &kp LCMD  &kp PAGE_UP                  &kp PAGE_DOWN    &kp TAB      &none   &kp H   &kp N                 &kp E                  &kp I           &kp O    &kp SQT
+ &kp LSHFT     &kp Z             &kp X              &kp C      &kp V   &kp B                                       &kp ESCAPE                      &kp MINUS                         &kp K   &kp M             &kp COMMA                &kp DOT        &kp FSLH  &kp RSHFT
+     &mo 2  &kp LEFT  &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp RIGHT                    &kp BSPC  &kp LEFT_SHIFT    &kp RCTRL                       &kp RALT  &kp ENTER  &kp SPACE          &kp UP  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp DOWN_ARROW      &mo 2
             >;
         };
 
