@@ -32,6 +32,13 @@
         flavor = "tap-preferred";
         bindings = <&kp>, <&kp>;
     };
+
+    gresc: shift_1_pipe {
+        compatible = "zmk,behavior-mod-morph";
+        #binding-cells = <0>;
+        bindings = <&kp N1>, <&kp PIPE>;
+        mods = <(MOD_LSFT|MOD_RSFT)>;
+    };
   };
 
     keymap {
