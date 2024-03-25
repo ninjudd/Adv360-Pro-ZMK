@@ -53,18 +53,32 @@
         bindings = <&kp N0>, <&kp EQUAL>;
         mods = <(MOD_LSFT|MOD_RSFT)>;
     };
-    lparen_lt: lparen_lt {
-        label = "left_paren_less_than";
+    lparen_lbrace: lparen_lbrace {
+        label = "left_paren_left_brace";
         compatible = "zmk,behavior-mod-morph";
         #binding-cells = <0>;
-        bindings = <&kp LEFT_PARENTHESIS>, <&kp LESS_THAN>;
+        bindings = <&kp LEFT_PARENTHESIS>, <&kp LEFT_BRACE>;
         mods = <(MOD_LSFT|MOD_RSFT)>;
     };
-    rparen_gt: rparen_gt {
-        label = "right_paren_less_than";
+    rparen_rbrace: rparen_rbrace {
+        label = "right_paren_right_brace";
         compatible = "zmk,behavior-mod-morph";
         #binding-cells = <0>;
-        bindings = <&kp RIGHT_PARENTHESIS>, <&kp GREATER_THAN>;
+        bindings = <&kp RIGHT_PARENTHESIS>, <&kp RIGHT_BRACE>;
+        mods = <(MOD_LSFT|MOD_RSFT)>;
+    };
+    lbracket_lt: lbracket_lt {
+        label = "left_bracket_less_than";
+        compatible = "zmk,behavior-mod-morph";
+        #binding-cells = <0>;
+        bindings = <&kp LEFT_BRACKET>, <&kp LESS_THAN>;
+        mods = <(MOD_LSFT|MOD_RSFT)>;
+    };
+    rbracket_gt: rbracket_gt {
+        label = "right_bracket_greater_than";
+        compatible = "zmk,behavior-mod-morph";
+        #binding-cells = <0>;
+        bindings = <&kp RIGHT_BRACKET>, <&kp GREATER_THAN>;
         mods = <(MOD_LSFT|MOD_RSFT)>;
     };
     colon_semicolon: colon_semicolon {
@@ -107,7 +121,7 @@
   &kp LALT     &kp Q             &kp W              &kp F      &kp P   &kp G               &none                                                                             &none   &kp J   &kp L                 &kp U                  &kp Y       &colon_semicolon  &kp GRAVE
  &kp LCTRL     &kp A             &kp R              &kp S      &kp T   &kp D               &none        &kp LCMD  &kp PAGE_UP                  &kp PAGE_DOWN    &kp TAB      &none   &kp H   &kp N                 &kp E                  &kp I           &kp O    &kp SQT
  &kp LSHFT     &kp Z             &kp X              &kp C      &kp V   &kp B                                       &kp ESCAPE                      &kp MINUS                         &kp K   &kp M             &comma_question                &dot_exclamation        &fslh_bslh  &kp RSHFT
-     &mo 2  &kp LEFT  &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp RIGHT                    &kp BSPC  &kp LEFT_SHIFT    &kp RCTRL                       &kp RALT  &kp ENTER  &kp SPACE          &kp UP  &lparen_lt  &rparen_gt  &kp DOWN_ARROW      &mo 2
+     &mo 2  &kp LEFT  &lbracket_lt  &rbracket_gt  &kp RIGHT                    &kp BSPC  &kp LEFT_SHIFT    &kp RCTRL                       &kp RALT  &kp ENTER  &kp SPACE          &kp UP  &lparen_lbrace  &rparen_rbrace  &kp DOWN_ARROW      &mo 2
             >;
         };
 
@@ -117,7 +131,7 @@
   &kp LALT     &kp Q      &kp W      &kp F      &kp P   &kp G               &none                                                                         &none   &kp J   &kp KP_N7     &kp KP_N8      &kp KP_N9     &kp KP_MINUS   &kp BSLH
  &kp LCTRL     &kp A      &kp R      &kp S      &kp T   &kp D               &none    &kp LCMD  &kp PAGE_UP                      &kp PG_DN    &kp TAB      &none   &kp H   &kp KP_N4     &kp KP_N5      &kp KP_N6      &kp KP_PLUS    &kp SQT
  &kp LSHFT     &kp Z      &kp X      &kp C      &kp V   &kp B                                      &kp ESC                  &kp MINUS                         &kp K   &kp KP_N1     &kp KP_N2      &kp KP_N3     &kp KP_ENTER  &kp RSHFT
-     &mo 2  &kp LEFT  &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp RIGHT                    &kp BSPC  &kp RSHIFT    &kp RCTRL                       &kp RALT  &kp ENTER  &kp SPACE              &kp UP     &kp KP_N0     &kp KP_DOT         &kp DOWN      &mo 2
+     &mo 2  &kp LEFT  &lbracket_lt  &rbracket_gt  &kp RIGHT                    &kp BSPC  &kp RSHIFT    &kp RCTRL                       &kp RALT  &kp ENTER  &kp SPACE              &kp UP     &kp KP_N0     &kp KP_DOT         &kp DOWN      &mo 2
             >;
         };
 
