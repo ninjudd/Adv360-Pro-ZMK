@@ -41,11 +41,17 @@ requests into `V3.0` with **Create a merge commit**.
 
 Every push builds two artifacts: `firmware-no-clique`, the plain firmware, and
 `firmware-clique`, the same build with ZMK Studio enabled for Kinesis Clique.
-Either flashes. To fetch the plain one from the latest run into `firmware/`,
-where it is ignored by git:
+Either flashes. They are attached to the workflow run, not published under
+Releases: on GitHub, open the **Actions** tab, click the run for the commit
+you want, and download from the **Artifacts** section at the bottom of the
+run page. Artifacts expire after 90 days, so rebuild by pushing if the run
+you want has aged out. From the command line, `gh run download` takes a run
+ID, so look up the latest successful run on `V3.0` first, then fetch the
+plain artifact into `firmware/`, where git ignores it:
 
 ```shell
-gh run download --branch V3.0 -n firmware-no-clique -D firmware
+gh run list --branch V3.0 --status success --limit 1
+gh run download <run-id> -n firmware-no-clique -D firmware
 ```
 
 Before flashing a different firmware generation onto a keyboard, flash
