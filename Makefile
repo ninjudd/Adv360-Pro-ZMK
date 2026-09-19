@@ -39,6 +39,7 @@ clean_firmware:
 	rm -f firmware/*.uf2
 
 clean_image:
-	$(DOCKER) image rm zmk docker.io/zmkfirmware/zmk-build-arm:3.2-branch
+	$(DOCKER) image rm zmk
+	-$(DOCKER) image rm docker.io/zmkfirmware/zmk-build-arm:3.2-branch
 
 clean: clean_firmware clean_image
