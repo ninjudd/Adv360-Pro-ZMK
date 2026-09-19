@@ -39,18 +39,37 @@ git merge FETCH_HEAD
 Expect conflicts only on the image-tag lines. For the same reason, merge pull
 requests into `V3.0` with **Create a merge commit**.
 
-Every push builds two artifacts: `firmware-no-clique`, the plain firmware, and
-`firmware-clique`, the same build with ZMK Studio enabled for Kinesis Clique.
-Either flashes. To fetch the plain one from the latest run into `firmware/`,
-where it is ignored by git:
+Every push to `V3.0` publishes a GitHub Release, tagged
+`fw-<date>-<time>-<commit>`, with four files under stable names: `left.uf2`
+and `right.uf2`, the plain firmware, and `left-clique.uf2` and
+`right-clique.uf2`, the same build with ZMK Studio enabled for Kinesis Clique.
+Either pair flashes. Get the latest from the
+[Releases](https://github.com/ninjudd/Adv360-Pro-ZMK/releases) page, or fetch
+it into `firmware/`, where git ignores it. The names are the same on every
+release, so `--clobber` is needed to replace the files a previous download
+left there:
 
 ```shell
-gh run download --branch V3.0 -n firmware-no-clique -D firmware
+gh release download --pattern '*.uf2' -D firmware --clobber
 ```
 
-Before flashing a different firmware generation onto a keyboard, flash
-`settings-reset.uf2` on both halves first, then pair the halves and the host
-again.
+Every push on any branch also builds the same files as workflow artifacts,
+`firmware-no-clique` and `firmware-clique`, which is how to get a build that
+hasn't been merged yet. They are under the **Artifacts** section at the bottom
+of the run's page on the **Actions** tab and expire after 90 days. From the
+command line, `gh run download` takes a run ID:
+
+```shell
+gh run list --branch <branch> --status success --limit 1
+gh run download <run-id> -n firmware-no-clique -D firmware
+```
+
+### Flashing
+
+[docs/flashing.md](docs/flashing.md) covers it: both ways into the bootloader,
+with the key and reset-button positions spelled out for blank keycaps and a
+photo of the reset spot, the quick path for a keymap change, and the
+settings-reset sequence for a change of firmware generation.
 
 ## Modifying the keymap
 

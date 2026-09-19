@@ -115,3 +115,42 @@ jobs:
           path: |
             ${{ steps.get_info.outputs.file_prefix }}-left.uf2
             ${{ steps.get_info.outputs.file_prefix }}-right.uf2
+  release:
+    runs-on: ubuntu-latest
+    name: Release
+    needs: [build, build-clique]
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/V3.0') || github.event_name == 'workflow_dispatch'
+    permissions:
+      contents: write
+    steps:
+      - name: Download both artifacts
+        uses: actions/download-artifact@v8
+        with:
+          path: artifacts
+      - name: Give the files stable names
+        run: |
+          cp artifacts/firmware-no-clique/*-left.uf2 left.uf2
+          cp artifacts/firmware-no-clique/*-right.uf2 right.uf2
+          cp artifacts/firmware-clique/*-left.uf2 left-clique.uf2
+          cp artifacts/firmware-clique/*-right.uf2 right-clique.uf2
+          ls -l ./*.uf2
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="fw-$(date -u +%Y%m%d-%H%M)-${GITHUB_SHA::7}"
+          flags=""
+          if [ "$GITHUB_REF" != "refs/heads/V3.0" ]; then
+            flags="--prerelease"
+          fi
+          cat > notes.md <<NOTES
+          Built by [run $GITHUB_RUN_ID]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID) from \`$GITHUB_REF_NAME\` at $GITHUB_SHA.
+
+          - \`left.uf2\` and \`right.uf2\`: the plain firmware.
+          - \`left-clique.uf2\` and \`right-clique.uf2\`: the same build with ZMK Studio enabled on the left half, for Kinesis Clique.
+
+          Flash it as [docs/flashing.md]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/blob/$GITHUB_SHA/docs/flashing.md) describes. The key combos are enough when the keyboard already runs this firmware generation; a settings reset is only needed across generations.
+          NOTES
+          gh release create "$tag" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
+            --title "Firmware $tag" --notes-file notes.md $flags \
+            left.uf2 right.uf2 left-clique.uf2 right-clique.uf2
