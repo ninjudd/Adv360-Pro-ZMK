@@ -1,5 +1,57 @@
 # Kinesis Advantage 360 Pro ZMK Config
 
+## This fork
+
+This is [ninjudd](https://github.com/ninjudd)'s fork of
+[KinesisCorporation/Adv360-Pro-ZMK](https://github.com/KinesisCorporation/Adv360-Pro-ZMK).
+It differs from upstream in three places; everything below this section is
+upstream's documentation and still applies.
+
+- **A custom Colemak layout.** It lives in
+  [`config/colemak.keymap`](config/colemak.keymap), and `adv360_left.keymap`
+  and `adv360_right.keymap` include it in place of `adv360.keymap`. Upstream's
+  `adv360.keymap`, `macros.dtsi` and `keymap.json` stay identical to upstream,
+  so upstream merges apply cleanly. [docs/colemak.md](docs/colemak.md) shows
+  every layer as a picture. Regenerate it after editing the keymap:
+
+  ```shell
+  python3 bin/render_keymap.py > docs/colemak.md
+  ```
+
+- **A pinned build image.** The workflow, `Dockerfile` and `Makefile` build in
+  `zmkfirmware/zmk-build-arm:3.5-branch`, the toolchain for the Zephyr version
+  that the ZMK branch in `config/west.yml` uses. Upstream uses `stable`, which
+  moves to newer Zephyr tooling over time. Bump the tag when the ZMK branch
+  changes Zephyr version.
+- **CI on Node 24.** The three GitHub actions in the workflow are on the majors
+  that declare Node 24, and `make clean_image` tolerates Docker's BuildKit,
+  which never puts the base image in the image store.
+
+To take upstream changes, merge them. Never squash or rebase them in, because
+that drops upstream's history and makes the next merge start again from the
+2023 fork point:
+
+```shell
+git fetch https://github.com/KinesisCorporation/Adv360-Pro-ZMK.git V3.0
+git merge FETCH_HEAD
+```
+
+Expect conflicts only on the image-tag lines. For the same reason, merge pull
+requests into `V3.0` with **Create a merge commit**.
+
+Every push builds two artifacts: `firmware-no-clique`, the plain firmware, and
+`firmware-clique`, the same build with ZMK Studio enabled for Kinesis Clique.
+Either flashes. To fetch the plain one from the latest run into `firmware/`,
+where it is ignored by git:
+
+```shell
+gh run download --branch V3.0 -n firmware-no-clique -D firmware
+```
+
+Before flashing a different firmware generation onto a keyboard, flash
+`settings-reset.uf2` on both halves first, then pair the halves and the host
+again.
+
 ## Modifying the keymap
 
 [The ZMK documentation](https://zmk.dev/docs) covers both basic and advanced functionality and has a table of OS compatibility for keycodes. Please note that the RGB Underglow, Backlight and Power Management sections are not relevant to the Advantage 360 Pro's custom ZMK fork. For more information see [this note](#note)
