@@ -5,4 +5,6 @@
 *
 */
 
-#include "adv360.keymap"
+/* The custom layout lives in colemak.keymap (and colemak-macros.dtsi) so that
+ * adv360.keymap stays identical to upstream and merges cleanly. */
+#include "colemak.keymap"
