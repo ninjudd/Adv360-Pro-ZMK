@@ -39,18 +39,26 @@ git merge FETCH_HEAD
 Expect conflicts only on the image-tag lines. For the same reason, merge pull
 requests into `V3.0` with **Create a merge commit**.
 
-Every push builds two artifacts: `firmware-no-clique`, the plain firmware, and
-`firmware-clique`, the same build with ZMK Studio enabled for Kinesis Clique.
-Either flashes. They are attached to the workflow run, not published under
-Releases: on GitHub, open the **Actions** tab, click the run for the commit
-you want, and download from the **Artifacts** section at the bottom of the
-run page. Artifacts expire after 90 days, so rebuild by pushing if the run
-you want has aged out. From the command line, `gh run download` takes a run
-ID, so look up the latest successful run on `V3.0` first, then fetch the
-plain artifact into `firmware/`, where git ignores it:
+Every push to `V3.0` publishes a GitHub Release, tagged
+`fw-<date>-<time>-<commit>`, with four files under stable names: `left.uf2`
+and `right.uf2`, the plain firmware, and `left-clique.uf2` and
+`right-clique.uf2`, the same build with ZMK Studio enabled for Kinesis Clique.
+Either pair flashes. Get the latest from the
+[Releases](https://github.com/ninjudd/Adv360-Pro-ZMK/releases) page, or fetch
+it into `firmware/`, where git ignores it:
 
 ```shell
-gh run list --branch V3.0 --status success --limit 1
+gh release download --pattern '*.uf2' -D firmware
+```
+
+Every push on any branch also builds the same files as workflow artifacts,
+`firmware-no-clique` and `firmware-clique`, which is how to get a build that
+hasn't been merged yet. They are under the **Artifacts** section at the bottom
+of the run's page on the **Actions** tab and expire after 90 days. From the
+command line, `gh run download` takes a run ID:
+
+```shell
+gh run list --branch <branch> --status success --limit 1
 gh run download <run-id> -n firmware-no-clique -D firmware
 ```
 

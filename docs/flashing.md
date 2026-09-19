@@ -9,10 +9,10 @@ its keys do nothing while it is in the bootloader.
 
 ## Get the files
 
-Every push builds the firmware on GitHub Actions. The
-[README](../README.md#this-fork) explains how to download the
-`firmware-no-clique` artifact; it holds `<timestamp>-<commit>-left.uf2` and
-`<timestamp>-<commit>-right.uf2`, one per half. Put them in `firmware/`, where
+Every push to `V3.0` publishes a GitHub Release with `left.uf2` and
+`right.uf2`, one per half, plus a `-clique` pair with ZMK Studio enabled. The
+[README](../README.md#this-fork) explains how to fetch a release, or a
+not-yet-merged build from a workflow run. Put the files in `firmware/`, where
 git ignores them.
 
 `settings-reset.uf2` in the repository root is a third file you only need when
