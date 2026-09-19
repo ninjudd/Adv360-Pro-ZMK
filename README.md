@@ -54,9 +54,37 @@ gh run list --branch V3.0 --status success --limit 1
 gh run download <run-id> -n firmware-no-clique -D firmware
 ```
 
-Before flashing a different firmware generation onto a keyboard, flash
-`settings-reset.uf2` on both halves first, then pair the halves and the host
-again.
+### Flashing
+
+When you move a keyboard to a different firmware generation, each half gets
+two flashes: `settings-reset.uf2` from the repository root, then that half's
+firmware file. For a keymap-only change on the same generation, skip the
+reset; the halves and the host stay paired.
+
+Enter the bootloader with the physical reset button, a small hole on the
+underside of each half: double-press it with a paperclip. Section 2.7 of the
+[user manual](https://kinesis-ergo.com/wp-content/uploads/Advantage360-ZMK-KB360-PRO-Users-Manual-v3-10-23.pdf)
+shows where it is. The key combos in [Flashing firmware](#flashing-firmware)
+below work on this layout too, because the Mod layer keeps upstream's
+positions (Mod is the top key of the right half's inner column, macro1 is the
+key below Kpd on the left half, macro3 is the key below Mod on the right), but
+they stop working once a half's settings are reset, so plan on the button.
+
+1. Switch both halves on and plug the left half in over USB.
+2. Double-press the left half's reset button. A small USB drive appears.
+3. Copy `settings-reset.uf2` to the drive. It ejects itself and the half
+   reboots. macOS may report that the disk wasn't ejected properly; that's
+   harmless.
+4. Double-press the reset button again and copy the left firmware file,
+   `<timestamp>-<commit>-left.uf2`, to the drive.
+5. Unplug the left half, plug in the right one, and repeat steps 2 to 4 with
+   the right firmware file.
+6. Unplug everything and switch both halves off. Switch the left half on, then
+   the right. They pair to each other within a few seconds.
+7. Pair the host. Delete any existing entry for the keyboard in the computer's
+   Bluetooth settings first, because the reset discards the keys that pairing
+   used, then connect to the keyboard when it appears. USB to the left half
+   works as well.
 
 ## Modifying the keymap
 
