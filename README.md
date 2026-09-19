@@ -56,57 +56,10 @@ gh run download <run-id> -n firmware-no-clique -D firmware
 
 ### Flashing
 
-Flashing means putting a half into its bootloader, where it shows up on the
-computer as a USB drive named `Adv360 Pro`, and copying one `.uf2` file onto
-that drive. The half installs the file, ejects the drive itself and reboots.
-Wait for the eject; macOS may then report that the disk wasn't ejected
-properly, which is harmless. The half must be plugged in over USB, and its
-keys do nothing while it is in the bootloader.
-
-There are two ways into the bootloader:
-
-- **Key combo.** Hold Mod and press Hotkey 1 for the left half, or Mod and
-  Hotkey 3 for the right half. Mod is the top key of the right half's inner
-  column, the column nearest the thumb keys. Hotkey 1 is the middle key of the
-  left half's inner column, in the same row as Q, and Hotkey 3 is the middle
-  key of the right half's inner column, in the same row as J. The Mod layer in
-  `colemak.keymap` keeps these on upstream's positions, so the combos work on
-  this layout and on Kinesis's factory firmware.
-- **Reset button.** Each half has one on top, in its thumb cluster, at the
-  spot where the tall inner key meets the two small keys stacked beside it:
-  on the left half between Delete, Home and End in upstream's naming, on the
-  right half between Enter, Page Up and Page Down. Press a paperclip into that
-  gap twice, quickly. A single press exits the bootloader. Section 2.7 of the
-  [user manual](https://kinesis-ergo.com/wp-content/uploads/Advantage360-ZMK-KB360-PRO-Users-Manual-v3-10-23.pdf)
-  has a photo; remove the keycaps or use a flashlight if the gap is hard to
-  find.
-
-For a keymap change on the same firmware generation, the combos are all you
-need: plug in the left half, Mod and Hotkey 1, copy
-`<timestamp>-<commit>-left.uf2`, then the same on the right half with Mod and
-Hotkey 3 and the right file. The halves and the host stay paired.
-
-When you move a keyboard to a different firmware generation, or the halves
-stop syncing, follow section 7.2 of the manual and reset both halves first.
-The reset image wipes a half's settings and leaves it with no keymap, so after
-it the combos no longer work and the reset button is the only way back into
-the bootloader; the keyboard is unusable until the new firmware is on, so have
-another keyboard handy.
-
-1. Plug in the left half, enter the bootloader, and copy `settings-reset.uf2`
-   from the repository root.
-2. Plug in the right half and do the same.
-3. Plug in the left half, double-press its reset button, and copy the left
-   firmware file.
-4. Plug in the right half, double-press its reset button, and copy the right
-   firmware file.
-5. Unplug everything and switch both halves off. Switch the left half on, then
-   the right. They pair to each other within a few seconds; if they don't,
-   power-cycle the left then the right in quick succession.
-6. Pair the host. Delete any existing entry for the keyboard in the computer's
-   Bluetooth settings first, because the reset discards the keys that pairing
-   used, then connect to the keyboard when it appears. USB to the left half
-   works as well.
+[docs/flashing.md](docs/flashing.md) covers it: both ways into the bootloader,
+with the key and reset-button positions spelled out for blank keycaps and a
+photo of the reset spot, the quick path for a keymap change, and the
+settings-reset sequence for a change of firmware generation.
 
 ## Modifying the keymap
 
