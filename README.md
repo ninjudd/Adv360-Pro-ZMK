@@ -45,10 +45,12 @@ and `right.uf2`, the plain firmware, and `left-clique.uf2` and
 `right-clique.uf2`, the same build with ZMK Studio enabled for Kinesis Clique.
 Either pair flashes. Get the latest from the
 [Releases](https://github.com/ninjudd/Adv360-Pro-ZMK/releases) page, or fetch
-it into `firmware/`, where git ignores it:
+it into `firmware/`, where git ignores it. The names are the same on every
+release, so `--clobber` is needed to replace the files a previous download
+left there:
 
 ```shell
-gh release download --pattern '*.uf2' -D firmware
+gh release download --pattern '*.uf2' -D firmware --clobber
 ```
 
 Every push on any branch also builds the same files as workflow artifacts,
